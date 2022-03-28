@@ -1,13 +1,14 @@
 package lab6Sample;
-
-import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.border.BevelBorder;
+import javax.swing.SwingConstants;
 
 public class PaintArray {
 
@@ -41,26 +42,27 @@ public class PaintArray {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 788, 579);
+		frame.setBounds(100, 100, 959, 663);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		ArrayPanel panel = new ArrayPanel();
-		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(10, 11, 541, 450);
+		panel.setBackground(new Color(240, 248, 255));
+		panel.setBounds(10, 10, 774, 572);
 		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C");
+		JButton btnNewButton = new JButton("\u041F\u0440\u0435\u043E\u0431\u0440\u0430\u0437\u043E\u0432\u0430\u0442\u044C");
+		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setForeground(Color.BLACK);
+//		btnNewButton.setBackground(new Color(124, 252, 0));
+//		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-//				panel.UpdateArray();
+			public void actionPerformed(ActionEvent e) {
+				panel.update();
 			}
 		});
-		btnNewButton.setBounds(575, 149, 172, 73);
-		frame.getContentPane().add(btnNewButton);
-		btnNewButton.setBounds(575, 149, 172, 73);
+		btnNewButton.setBounds(789, 234, 144, 44);
 		frame.getContentPane().add(btnNewButton);
 	}
 

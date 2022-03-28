@@ -7,52 +7,45 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.JPanel;
 
-public class ArrayPanel extends JPanel 
-{
+public class ArrayPanel extends JPanel {
 	private int[][] arr;
 	private int w; // Width
 	private int h; // Height
+	private int max;
+	private int min;
+	private int imax = 0;
+	private int imin = 0;
 	
-	public ArrayPanel()
-	{
-		try 
-		{
-			Scanner sc = new Scanner(new File("E:\\Input.txt"));
+	public ArrayPanel() {
+		try {
+			Scanner sc = new Scanner(new File("F:\\Input.txt"));
 			
-			w = sc.nextInt();
 			h = sc.nextInt();
-			arr = new int[w][h];
+			w = sc.nextInt();
+			arr = new int[h][w];
 			
 			for (int y = 0; y < h; y++)
 			{
 				for (int x = 0; x < w; x++)
 				{
-					arr[x][y] = sc.nextInt();
+					arr[y][x] = sc.nextInt();
 				}
 			}
 			
 			sc.close();
-;		} catch (FileNotFoundException e) 
-		{
+;		} 
+		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public void paint(Graphics g)
-	{
+	public void paint(Graphics g) {
 		super.paint(g);
-		
-		int k = 100;
-		int m = 100;
-		
-		for (int y = 0; y < h; y++)
-		{
-			for (int x = 0; x < w; x++)
-			{
-				switch (arr[x][y])
-				{
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				switch (arr[y][x]) {
 				case 0:
 					g.setColor(new Color(255, 255, 255));
 					break;
@@ -70,7 +63,7 @@ public class ArrayPanel extends JPanel
 					break;
 					
 				case 4:
-					g.setColor(new Color(0, 0, 0));
+					g.setColor(new Color(123, 0, 0));
 					break;
 					
 				case 5:
@@ -82,7 +75,7 @@ public class ArrayPanel extends JPanel
 					break;
 					
 				case 7:
-					g.setColor(new Color(255, 0, 255));
+					g.setColor(new Color(0, 0, 0));
 					break;
 					
 				case 8:
@@ -92,31 +85,39 @@ public class ArrayPanel extends JPanel
 				case 9:
 					g.setColor(new Color(0, 127, 127));
 					break;
+				default:
+					g.setColor(new Color(255, 132, 123));
+					break;
 				}
-				if (arr[x][y] > 9) {
-					g.setColor(new Color(255, 0, 0));
-				}
-				g.fillRect(k, m, 10, 10);
 				
-				k += 10;
+				g.fillRect(45 + x * 45, 45 + y * 45, 40, 40);
 			}
-			
-			k = 100;
-			m += 10;
 		}
 	}
 	
-	public void UpdateArray(Graphics g)
-	{
-		super.paint(g);
-		for (int y = 0; y < h; y++)
-		{
-			for (int x = 0; x < w; x++)
-			{
-				
+	public void update() {
+		max = arr[0][0];
+		min = arr[0][0];
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if(max < arr[y][x]) {
+					max = arr[y][x];
+					imax = x;
+				}
+				if(min > arr[y][x]) {
+					min = arr[y][x];
+					imin = x;
+				}
 			}
 		}
 		
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				int temp = arr[y][imax];
+				arr[y][imax] = arr[y][imin];
+				arr[y][imin] = temp;
+			}
+		}
 		repaint();
 	}
 }
