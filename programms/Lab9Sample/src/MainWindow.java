@@ -15,9 +15,9 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
 public class MainWindow {
-
 	private JFrame frame;
-
+	public int count = 0;
+	String s = "";
 	/**
 	 * Launch the application.
 	 */
@@ -62,6 +62,7 @@ public class MainWindow {
 				String fileName = ofd.getSelectedFile().getAbsolutePath();
 					try {
 						Scanner sc = new Scanner(new File(fileName));
+						s = fileName;
 						String str = "";
 						while (sc.hasNext()) {
 							str += sc.nextLine() + "\r\n";
@@ -76,33 +77,39 @@ public class MainWindow {
 		});
 		button.setBounds(10, 238, 131, 23);
 		frame.getContentPane().add(button);
-		
 		JButton btnNewButton = new JButton("\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StringBuilder sb = new StringBuilder (textArea.getText());
-				for (int i = 0; i < sb.length(); i++) {
-					if (sb.charAt(i) == 'A') {
-						if (sb.charAt(i) == sb.charAt(i + 1)) {
-							sb.replace(i, i + 2, "*");
-						}
+				if ((sb.charAt(0) == 'a') || (sb.charAt(0) == 'A') ) {
+					count++;
+				}
+				for (int i = 0; i < sb.length() - 1; i++) {
+					if(((sb.charAt(i) == '\n') && (sb.charAt(i + 1) == 'a' || sb.charAt(i + 1) == 'A'))) {
+						count++;
 					}
-				textArea.setText(sb.toString());
+					if (((sb.charAt(i) == ' ') && (sb.charAt(i + 1) == 'a' || sb.charAt(i + 1) == 'A'))) {
+						count++;
+					}
+					textArea.setText("Успешно обработано!!!");
 				}
 			}
 		});
 		btnNewButton.setBounds(253, 238, 118, 23);
 		frame.getContentPane().add(btnNewButton);
-		
 		JButton btnNewButton_1 = new JButton("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String hl = "<HTML><HEAD><TITLE>Лабораторная работа №9</TITLE></HEAD><BODY><p align=\"center\"><b>Лабораторная работа №9</b><br><i>Вариант А</i></p><br>Выполнил студент группы <i>ИВТАПбд-11</i> <b><i>Мухаметзянов Т. А.</i></b><br>Файл: <b>";
+				String h2 = "</b><br>Количество найденных слов: ";
 				JFileChooser sfd = new JFileChooser();
-				if(sfd.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+				if(sfd.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
 					String fileName = sfd.getSelectedFile().getAbsolutePath();
 					try {
 						BufferedWriter sw = new BufferedWriter(new FileWriter(new File(fileName)));
-						sw.write(textArea.getText());
+						sw.write(hl + s + h2 + "<b>" + count );
+						sw.write("</b>");
+						sw.write("</BODY></HTML>");
 						sw.close();
 					} catch (IOException e1) {
 						e1.printStackTrace();
