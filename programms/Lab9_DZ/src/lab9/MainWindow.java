@@ -1,3 +1,5 @@
+package lab9;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,11 +15,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 
 public class MainWindow {
-	public int count = -1;
+	public int count = 0;
 	String s = "";
-	String str1 = "qwerty";
+	String str1 = "";
 	String [] words;
 	String [] words2;
 	private JFrame frame;
@@ -82,6 +86,19 @@ public class MainWindow {
 		button.setBounds(10, 238, 131, 23);
 		frame.getContentPane().add(button);
 		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setBounds(151, 238, 89, 23);
+		frame.getContentPane().add(textArea_1);
+		
+		JButton btnNewButton_2 = new JButton("\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u043F\u043E\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				str1 = textArea_1.getText();
+			}
+		});
+		
+		btnNewButton_2.setBounds(90, 266, 220, 23);
+		frame.getContentPane().add(btnNewButton_2);
 		JButton btnNewButton = new JButton("\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,17 +106,17 @@ public class MainWindow {
 				words = sd.split("\n");
 				words2 = sd.split(" ");
 				for(String word : words){
-					if((word.startsWith("qwerty"))) {
+					if((word.startsWith(str1))) {
 						count++;
 					}
-					textArea.setText("Успешно обработано!");
 				}
 				for(String words : words2){
-					if((words.startsWith("qwerty"))) {
+					if((words.startsWith(str1))) {
 						count++;
 					}
-					textArea.setText("Успешно обработано!");
 				}
+					textArea.setText("Успешно обработано!");
+					textArea_1.setText("Успешно обработано!");
 			}
 		});
 		btnNewButton.setBounds(253, 238, 118, 23);
@@ -108,7 +125,7 @@ public class MainWindow {
 		JButton btnNewButton_1 = new JButton("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String hl = "<HTML><HEAD><TITLE>Лабораторная работа №9</TITLE></HEAD><BODY><p align=\"center\"><b>Лабораторная работа №9</b><br><i>Вариант B</i></p><br>Выполнил студент группы ИВТАПбд-11<b> Мухаметзянов Т. А.</b><br>Файл: <b>";
+				String hl = "<HTML><HEAD><TITLE>Лабораторная работа №9</TITLE></HEAD><BODY><p align=\"center\"><b>Лабораторная работа №9</b><br><i>Вариант B</i></p><br>Выполнил студент группы <i>ИВТАПбд-11</i><b><i> Мухаметзянов Т. А.</i></b><br>Файл: <b>";
 				String h2 = "</b><br>Количество найденных слов: ";
 				String h3 = "<br>Начало слова: ";
 				JFileChooser sfd = new JFileChooser();
@@ -129,5 +146,8 @@ public class MainWindow {
 		});
 		btnNewButton_1.setBounds(467, 238, 140, 23);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		
+		
 	}
 }
