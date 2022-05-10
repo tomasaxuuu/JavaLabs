@@ -31,10 +31,12 @@ public class PaintPanel extends JPanel {
 		RecurStar(g, x - size / 100, y + size, size / 2, depth - 1);
 	}
 	
-	@Override
+@Override
 	
 	public void paint(Graphics g) {
 		super.paint(g);
 		RecurStar(g, 300, 200, 100, depth);
 	}
+	
+	
 }
